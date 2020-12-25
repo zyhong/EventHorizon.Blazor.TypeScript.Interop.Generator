@@ -1,31 +1,139 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Normalizers
 {
     public static class DotNetNormalizer
     {
-        private static readonly IList<string> NORMAILZE_LIST = new List<string>
+        private static readonly HashSet<string> KEYWORD_SET = new HashSet<string>
         {
-            "ref",
-            "lock",
-            "unlock",
-            "object",
-            "event",
+            //C# KEYWORDS
+            "abstract",
+            "as",
+            "base",
             "bool",
+            "break",
+            "byte",
+            "case",
+            "catch",
+            "char",
+            "checked",
+            "each",
+            "int",
+            "void",
+            "checked",
+            "class",
+            "const",
+            "continue",
+            "decimal",
+            "default",
+            "delegate",
+            "do",
+            "double",
+            "else",
+            "enum",
+            "event",
+            "explicit",
+            "extern",
+            "false",
+            "finally",
+            "fixed",
+            "float",
+            "for",
+            "foreach",
+            "goto",
+            "if",
+            "implicit",
+            "in",
+            "int",
+            "interface",
+            "internal",
+            "is",
+            "lock",
+            "long",
+            "namespace",
+            "new",
+            "null",
+            "object",
+            "operator",
+            "out",
+            "override",
+            "params",
+            "private",
+            "protected",
+            "public",
+            "readonly",
+            "ref",
+            "return",
+            "sbyte",
+            "sealed",
+            "short",
+            "sizeof",
+            "stackalloc",
+            "static",
+            "string",
+            "struct",
+            "switch",
+            "this",
+            "throw",
+            "true",
+            "try",
+            "typeof",
+            "uint",
+            "ulong",
+            "unchecked",
+            "unsafe",
+            "ushort",
+            "using",
             "virtual",
+            "void",
+            "volatile",
+
+            //CONTEXTUAL KEYWORDS
+            //"add",
+            //"alias",
+            //"ascending",
+            //"async",
+            //"await",
+            //"by",
+            //"descending",
+            //"dynamic",
+            //"equals",
+            //"from",
+            //"get",
+            //"global",
+            //"group",
+            //"into",
+            //"join",
+            //"let",
+            //"nameof",
+            //"notnull",
+            //"on",
+            //"orderby",
+            //"partial",
+            //"remove",
+            //"select",
+            //"set",
+            //"unmanaged",
+            //"value",
+            //"var",
+            //"when",
+            //"where",
+            //"with",
+            //"yield",
         };
 
-        public static string Normalize(
-            string text
-        )
-        {
-            if (NORMAILZE_LIST.Contains(text))
+        public static string EscapeKeyword(this string input) =>
+            KEYWORD_SET.Contains(input) ? $"@{input}" : input;
+
+        public static string FirstCharToUpper(this string input) =>
+            input switch
             {
-                return $"@{text}";
-            }
-            return text;
-        }
+                null => null,
+                "" => "",
+                _ => input.First().ToString().ToUpper() + input.Substring(1)
+            };
     }
 }

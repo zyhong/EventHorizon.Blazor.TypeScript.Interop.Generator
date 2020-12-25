@@ -64,18 +64,10 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.ConsoleApp
             };
 
             // Remove any already Generated Source.
-            if (Directory.Exists(Path.Combine(
-                projectGenerationLocation,
-                projectAssembly
-            )))
+            var path = Path.Combine(projectGenerationLocation, projectAssembly);
+            if (Directory.Exists(path))
             {
-                Directory.Delete(
-                    Path.Combine(
-                        projectGenerationLocation,
-                        projectAssembly
-                    ),
-                    true
-                );
+                Directory.Delete(path, true);
             }
             GlobalLogger.Info("Removed Generation Directory");
 
@@ -83,6 +75,7 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.ConsoleApp
                 projectAssembly,
                 sourceDirectory,
                 sourceFiles,
+                //null,
                 generationList,
                 writer,
                 textFormatter,

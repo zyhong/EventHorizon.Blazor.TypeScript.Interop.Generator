@@ -113,7 +113,7 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
                         propertyArguments = string.Join(
                             ", ",
                             actionArgument.Type.Arguments.Select(
-                                argument => DotNetNormalizer.Normalize(argument.Name)
+                                argument => argument.Name.EscapeKeyword()
                             )
                         );
                     }
@@ -144,7 +144,7 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
                             string.Join(
                                 ", ",
                                 method.Arguments.Select(
-                                    argument => DotNetNormalizer.Normalize(argument.Name)
+                                    argument => argument.Name.EscapeKeyword()
                                 )
                             )
                         : string.Empty;
@@ -301,10 +301,8 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
                     "[[STATIC]]",
                     method.IsStatic ? "static " : string.Empty
                 ).Replace(
-                    "[[NAME]]",
-                    DotNetNormalizer.Normalize(
-                        method.Name
-                    )
+                    "[[NAME]]",                   
+                    method.Name.EscapeKeyword()
                 ).Replace(
                     "[[NAME_CAPTIALIZED]]",
                     method.Name.Captialize()
@@ -344,10 +342,8 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
                     "[[PROPERTY_IDENTIFIER]]",
                     propertyIdentifier
                 ).Replace(
-                    "[[PROPERTY]]",
-                    DotNetNormalizer.Normalize(
-                        method.Name
-                    )
+                    "[[PROPERTY]]",                    
+                    method.Name.EscapeKeyword()
                 ).Replace(
                     "[[PROPERTY_ARGUMENTS]]",
                     propertyArguments

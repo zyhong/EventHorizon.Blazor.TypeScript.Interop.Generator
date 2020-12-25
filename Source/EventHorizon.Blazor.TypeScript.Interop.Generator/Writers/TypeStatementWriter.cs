@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using EventHorizon.Blazor.TypeScript.Interop.Generator.Model;
 using EventHorizon.Blazor.TypeScript.Interop.Generator.Model.Statements;
 
@@ -7,13 +8,29 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
 {
     public class TypeStatementWriter
     {
+        private static Dictionary<string, string> TypesMap = new Dictionary<string, string>
+        {
+            { "unknown", "object" },
+            { "Map", "Dictionary" },
+             { "Set", "HashSet" },
+        };
+
+        public static string Translate(string type)
+        {
+            if (TypesMap.ContainsKey(type))
+            {
+                return TypesMap[type];
+            }
+            return type;
+        }
+
         public static string Write(
             TypeStatement type,
             bool includeArraySymbol = true,
             bool ignorePrefix = false
         )
         {
-            if (type.IsTypeAlias 
+            if (type.IsTypeAlias
                 && !type.IsNullable
                 && !type.IsModifier
                 && !type.IsArray
@@ -115,7 +132,7 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
 
             return template.Replace(
                 "[[NAME]]",
-                name
+                Translate(name)
             ).Replace(
                 "[[GENERIC_TYPES]]",
                 genericTypesAsString

@@ -30,7 +30,7 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
             }
             return argumentsTemplate.Replace(
                 "[[NAME]]",
-                DotNetNormalizer.Normalize(argument.Name)
+                argument.Name.EscapeKeyword()
             ).Replace(
                 "[[TYPE]]",
                 TypeStatementWriter.Write(

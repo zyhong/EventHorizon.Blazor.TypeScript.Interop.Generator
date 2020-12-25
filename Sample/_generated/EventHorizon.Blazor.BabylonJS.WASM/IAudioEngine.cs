@@ -243,12 +243,12 @@ __onAudioLockedObservable = null;
             );
         }
 
-        public void @unlock()
+        public void unlock()
         {
             EventHorizonBlazorInterop.Func<CachedEntity>(
                 new object[]
                 {
-                    new string[] { this.___guid, "@unlock" }
+                    new string[] { this.___guid, "unlock" }
                 }
             );
         }

@@ -76,7 +76,7 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
                     }
                 }
 
-                if(isEnum)
+                if (isEnum)
                 {
                     propertyGetterResultType = templates.InteropGet;
                 }
@@ -129,9 +129,7 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
                         string.Empty
                     ).Replace(
                         "[[NAME]]",
-                        DotNetNormalizer.Normalize(
-                            accessor.Name
-                        )
+                        accessor.Name.EscapeKeyword()
                     ).Replace(
                         "[[NAME_CAPTIALIZED]]",
                         accessor.Name.Captialize()

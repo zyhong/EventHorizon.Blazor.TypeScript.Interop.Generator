@@ -106,7 +106,7 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
                 {
                     propertyGetterResultType = templates.InteropGetArray;
                 }
-                else if(isLiteral && property.Type.Name == GenerationIdentifiedTypes.CachedEntity)
+                else if (isLiteral && property.Type.Name == GenerationIdentifiedTypes.CachedEntity)
                 {
                     propertyGetterResultType = templates.InteropGetClass;
                 }
@@ -143,9 +143,7 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
                         string.Empty
                     ).Replace(
                         "[[NAME]]",
-                        DotNetNormalizer.Normalize(
-                            property.Name
-                        )
+                        property.Name.EscapeKeyword()
                     ).Replace(
                         "[[CACHE_NAME]]",
                         property.Name

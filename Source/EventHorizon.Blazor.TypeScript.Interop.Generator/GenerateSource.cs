@@ -12,6 +12,7 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator
     using EventHorizon.Blazor.TypeScript.Interop.Generator.Model.Statements;
     using EventHorizon.Blazor.TypeScript.Interop.Generator.Model.Writer;
     using Sdcb.TypeScript;
+    using Sdcb.TypeScript.TsTypes;
 
     public class GenerateSource
     {
@@ -61,6 +62,12 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator
                 )
             );
             GlobalLogger.Info($"=== Generated Cached Entity Object | ElapsedTime: {stopwatch.ElapsedMilliseconds}ms");
+
+            if (generationList is null || !generationList.Any())
+            {
+                //nothing in the generation list mean we want to generate every class
+                generationList = ast.OfKind(SyntaxKind.ClassDeclaration).Select(node=>node.IdentifierStr).ToList();
+            }
 
             stopwatch.Restart();
             GlobalLogger.Info($"=== Generate Class Statements");

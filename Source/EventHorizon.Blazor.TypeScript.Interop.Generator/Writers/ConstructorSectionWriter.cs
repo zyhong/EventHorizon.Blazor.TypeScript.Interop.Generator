@@ -45,9 +45,7 @@ namespace EventHorizon.Blazor.TypeScript.Interop.Generator.Writers
                 var propertyArguments = string.Join(
                     ", ",
                     arguments.Select(
-                        argument => DotNetNormalizer.Normalize(
-                            argument.Name
-                        )
+                        argument => argument.Name.EscapeKeyword()
                     )
                 );
 
